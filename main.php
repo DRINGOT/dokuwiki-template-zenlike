@@ -4,7 +4,7 @@
  *
  * This is a dokuwiki adaption of the zenlike1.0 template by nodethirtythree design
  *
- * @version 1.1
+ * @version 20110209
  * @link   http://dokuwiki.org/templates
  * @link   http://www.nodethirtythree.com
  * @author Dennis Ploeger <develop@dieploegers.de> 
@@ -143,7 +143,7 @@ if (!defined('DOKU_INC')) die();
     </div>
 	<div id="footer">
 
-		<div class="left">&copy; 2006 Your Website Name. All rights reserved.</div>
+		<div class="left"><?php print tpl_getConf('copyright');?></div>
 			<div class="right"><?php tpl_license(false);?></div>
 	</div>
 	
