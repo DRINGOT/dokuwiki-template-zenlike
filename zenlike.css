@@ -196,6 +196,7 @@ position: relative;
 	value (70%, 90%, etc.) or even a pixel value (760px, 800px, etc.) to enforce a fixed width.
 */
 width: 82%;
+max-width: 1024px;
 border: solid 7px #fff;
 background-color: #fff;
 margin: 0 auto;
@@ -282,7 +283,7 @@ vertical-align: middle;
 {
 position: relative;
 height: 109px;
-background: #000 url('images/hdrpic.png') no-repeat top left;
+background: #000 url('images/hdrpic.jpg') no-repeat top left;
 margin-bottom: 2px;
 }
 
