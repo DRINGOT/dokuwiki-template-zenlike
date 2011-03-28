@@ -125,6 +125,7 @@ if (!defined('DOKU_INC')) die();
 	</div>
 
   <?php tpl_flush()?>
+  <?php if (tpl_getConf('bottomButtons') == 1) {?>
     <div class="bar" id="bar__bottom">
       <div class="bar-left" id="bar__bottomleft">
         <?php tpl_button('edit')?>
@@ -141,6 +142,7 @@ if (!defined('DOKU_INC')) die();
       </div>
       <div class="clearer"></div>
     </div>
+    <?php } ?>
 	<div id="footer">
 
 		<div class="left"><?php print tpl_getConf('copyright');?></div>
