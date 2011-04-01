@@ -118,7 +118,11 @@ if (!defined('DOKU_INC')) die();
 		<?php tpl_userinfo()?>
 	      </div>
 	      <div class="doc">
-		<?php tpl_pageinfo()?>
+		<?php
+			if (tpl_getConf('hidePageinfo') == 0) { 
+				tpl_pageinfo();
+			}
+		?>
 	      </div>
 	    </div>
 
