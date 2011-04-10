@@ -181,14 +181,13 @@ left: 0px;
 width: 100%;
 height: 275px;
 background: #fff url('images/bg2.jpg') repeat-x;
-z-index: 1;
+z-index: -1;
 }
 
 .dokuwiki, .upper
 {
 top: 35px;
 bottom: 35px;
-z-index: 2;
 position: relative;
 /*
 	The width value below controls the overall width of the design. By default it's set to 82%
