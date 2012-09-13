@@ -460,79 +460,78 @@ div.dokuwiki table.inline td {
 
 /* ---------- table of contents ------------------- */
 
-div.dokuwiki div.toc {
-  margin: 1.2em 0 0 2em;
-  float: right;
-  width: 200px;
-  font-size: 80%;
-  clear: both;
+div.dokuwiki #dw__toc {
+    margin: 1.2em 0 0 2em;
+    float: right;
+    width: 200px;
+    font-size: 80%;
+    clear: both;
 }
 
-div.dokuwiki div.tocheader {
-  border: 1px solid __border__;
-  background-color: __background_alt__;
-  text-align: left;
-  font-weight: bold;
-  padding: 3px;
-  margin-bottom: 2px;
+div.dokuwiki #dw__toc h3 {
+    border: 1px solid __border__;
+    background-color: __background_alt__;
+    text-align: left;
+    font-weight: bold;
+    padding: 3px;
+    margin: 0 0 2px 0;
+    font-size: 1em;
 }
 
-div.dokuwiki span.toc_open,
-div.dokuwiki span.toc_close {
+div.dokuwiki .toggle strong {
     border: 0.4em solid __background_alt__;
     float: right;
     display: block;
     margin: 0.4em 3px 0 0;
 }
 
-div.dokuwiki span.toc_open span,
-div.dokuwiki span.toc_close span {
+div.dokuwiki .toggle span {
     display: none;
 }
 
-div.dokuwiki span.toc_open {
+div.dokuwiki .toggle.closed strong {
     margin-top: 0.4em;
     border-top: 0.4em solid __text__;
 }
 
-div.dokuwiki span.toc_close {
+div.dokuwiki .toggle.open strong {
     margin-top: 0;
     border-bottom: 0.4em solid __text__;
 }
 
-div.dokuwiki #toc__inside {
-  border: 1px solid __border__;
-  background-color: __background__;
-  text-align: left;
-  padding: 0.5em 0 0.7em 0;
+div.dokuwiki #dw__toc > div {
+    border: 1px solid __border__;
+    background-color: __background__;
+    text-align: left;
+    padding: 0.5em 0 0.7em 0;
 }
 
-div.dokuwiki ul.toc {
-  list-style-type: none;
-  list-style-image: none;
-  line-height: 1.2em;
-  padding-left: 1em;
-  margin: 0;
+div.dokuwiki #dw__toc ul {
+    list-style-type: none;
+    list-style-image: none;
+    line-height: 1.2em;
+    padding-left: 1em;
+    margin: 0;
 }
 
-div.dokuwiki ul.toc li {
-  background: transparent url(images/tocdot2.gif) 0 0.6em no-repeat;
-  padding-left: 0.4em;
+div.dokuwiki #dw__toc ul li {
+    background: transparent url(images/tocdot2.gif) 0 0.6em no-repeat;
+    padding-left: 0.4em;
 }
 
-div.dokuwiki ul.toc li.clear {
-  background-image: none;
-  padding-left: 0.4em;
+div.dokuwiki #dw__toc ul li.clear {
+    background-image: none;
+    padding-left: 0.4em;
 }
 
-div.dokuwiki a.toc:link,
-div.dokuwiki a.toc:visited {
-  color: __extern__;
+div.dokuwiki #dw__toc a:link,
+div.dokuwiki #dw__toc a:visited {
+    color: __extern__;
 }
 
-div.dokuwiki a.toc:hover,
-div.dokuwiki a.toc:active {
-  color: __text__;
+div.dokuwiki #dw__toc a:hover,
+div.dokuwiki #dw__toc a:active {
+    color: __text__;
 }
 
 /* ---------------------------- Diff rendering --------------------------*/
