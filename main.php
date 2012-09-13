@@ -29,7 +29,7 @@ if (!defined('DOKU_INC')) die();
     [<?php echo strip_tags($conf['title'])?>]
   </title>
   <?php tpl_metaheaders()?>
-  <link rel="shortcut icon" href="<?php echo DOKU_TPL?>images/favicon.ico" />
+  <?php echo tpl_favicon(array('favicon', 'mobile')) ?>
 </head>
 <body>
 
@@ -138,6 +138,7 @@ if (!defined('DOKU_INC')) die();
       </div>
       <div class="bar-right" id="bar__bottomright">
         <?php tpl_button('subscribe')?>
+        <?php tpl_button('media')?>
         <?php tpl_button('admin')?>
         <?php tpl_button('profile')?>
         <?php tpl_button('login')?>
@@ -154,6 +155,8 @@ if (!defined('DOKU_INC')) die();
 	</div>
 	
 </div>
+
+<div class="no"><?php /* provide DokuWiki housekeeping, required in all templates */ tpl_indexerWebBug()?></div>
 
 </body>
 </html>
