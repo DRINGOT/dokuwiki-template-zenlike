@@ -34,22 +34,32 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
     <?php /* classes mode_<action> are added to make it possible to e.g. style a page differently if it's in edit mode,
          see http://www.dokuwiki.org/devel:action_modes for a list of action modes */ ?>
     <?php /* .dokuwiki should always be in one of the surrounding elements (e.g. plugins and templates depend on it) */ ?>
+    <div id="upbg"></div>
     <div id="dokuwiki__site"><div id="dokuwiki__top"
         class="dokuwiki site mode_<?php echo $ACT ?>">
         <?php html_msgarea() /* occasional error and info messages on top of the page */ ?>
         <?php tpl_includeFile('header.html') ?>
 
+
+
         <!-- ********** HEADER ********** -->
         <div id="dokuwiki__header"><div class="pad">
 
             <div class="headings">
-                <h1><?php tpl_link(wl(),$conf['title'],'accesskey="h" title="[H]"') ?></h1>
-                <?php /* how to insert logo instead (if no CSS image replacement technique is used):
-                        upload your logo into the data/media folder (root of the media manager) and replace 'logo.png' accordingly:
-                        tpl_link(wl(),'<img src="'.ml('logo.png').'" alt="'.$conf['title'].'" />','id="dokuwiki__top" accesskey="h" title="[H]"') */ ?>
-                <?php if ($conf['tagline']): ?>
-                    <p class="claim"><?php echo $conf['tagline'] ?></p>
-                <?php endif ?>
+                <div id="header">
+                    <div id="headercontent">
+                        <h1><?php echo $conf['title']; ?></h1>
+                        <?php if (tpl_getConf('tagline')): ?>
+                        <h2><?php echo tpl_getConf('tagline'); ?></h2>
+                        <?php endif ?>
+                    </div>
+                </div>
+
+                <div id="search">
+                    <?php tpl_searchform() ?>
+                </div>
+
+                <div id="headerpic"></div>
 
                 <ul class="a11y skip">
                     <li><a href="#dokuwiki__content"><?php echo $lang['skip_to_content'] ?></a></li>
@@ -58,43 +68,86 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
             </div>
 
             <div class="tools">
-                <!-- USER TOOLS -->
-                <?php if ($conf['useacl'] && $showTools): ?>
-                    <div id="dokuwiki__usertools">
-                        <h3 class="a11y"><?php echo $lang['user_tools'] ?></h3>
-                        <ul>
-                            <?php /* the optional second parameter of tpl_action() switches between a link and a button,
-                                     e.g. a button inside a <li> would be: tpl_action('edit', 0, 'li') */
-                                if ($_SERVER['REMOTE_USER']) {
-                                    echo '<li class="user">';
-                                    tpl_userinfo(); /* 'Logged in as ...' */
-                                    echo '</li>';
-                                }
-                                tpl_action('admin', 1, 'li');
-                                _tpl_action('userpage', 1, 'li');
-                                tpl_action('profile', 1, 'li');
-                                tpl_action('register', 1, 'li'); /* DW versions < 2011-02-20 need to use _tpl_action('register', 1, 'li') */
-                                tpl_action('login', 1, 'li');
-                            ?>
-                        </ul>
-                    </div>
-                <?php endif ?>
 
-                <!-- SITE TOOLS -->
-                <div id="dokuwiki__sitetools">
-                    <h3 class="a11y"><?php echo $lang['site_tools'] ?></h3>
-                    <?php tpl_searchform() ?>
+                <div id="menu">
+
                     <ul>
                         <?php
-                            tpl_action('recent', 1, 'li');
-                            tpl_action('media', 1, 'li');
-                            tpl_action('index', 1, 'li');
+
+                        $menuItems = explode(',', tpl_getConf('menu'));
+
+                        foreach ($menuItems as $item) {
+
+                            list($label, $pageId) = explode('|', $item);
+
+                            print '<li><a href="' . wl($pageId) . '"';
+
+                            if (strcmp($pageId, $ID) == 0) {
+
+                                print ' class="active"';
+
+                            }
+
+                            print '>' . $label . '</a></li>';
+
+                        }
+
                         ?>
                     </ul>
+
+                    <div id="rightmenu">
+                        <ul>
+                                <?php
+
+                                tpl_action('recent', 1, 'li');
+                                tpl_action('media', 1, 'li');
+                                tpl_action('index', 1, 'li');
+
+                                if ($conf['useacl'] && $showTools) {
+
+                                    echo '<li>&brvbar;&nbsp;</li>';
+
+                                    if ($_SERVER['REMOTE_USER']) {
+                                        echo '<li class="user">';
+                                        tpl_userinfo(); /* 'Logged in as ...' */
+                                        echo '</li>';
+                                    }
+                                    tpl_action('admin', 1, 'li');
+                                    _tpl_action('userpage', 1, 'li');
+                                    tpl_action('profile', 1, 'li');
+                                    tpl_action('register', 1, 'li'); /* DW versions < 2011-02-20 need to use _tpl_action('register', 1, 'li') */
+                                    tpl_action('login', 1, 'li');
+
+                                }
+
+                                ?>
+
+                        </ul>
+                    </div>
                 </div>
 
             </div>
+
+            <div id="menubottom"></div>
+
             <div class="clearer"></div>
+
+            <!-- PAGE ACTIONS -->
+            <?php if ($showTools): ?>
+            <div id="dokuwiki__pagetools">
+                <h3 class="a11y"><?php echo $lang['page_tools'] ?></h3>
+                <ul>
+                    <?php
+                    tpl_action('edit', 1, 'li');
+                    _tpl_action('discussion', 1, 'li');
+                    tpl_action('revisions', 1, 'li');
+                    tpl_action('backlink', 1, 'li');
+                    tpl_action('subscribe', 1, 'li');
+                    tpl_action('revert', 1, 'li');
+                    ?>
+                </ul>
+            </div>
+            <?php endif; ?>
 
             <!-- BREADCRUMBS -->
             <?php if($conf['breadcrumbs']){ ?>
@@ -106,6 +159,7 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
 
             <div class="clearer"></div>
             <hr class="a11y" />
+
         </div></div><!-- /header -->
 
 
@@ -136,29 +190,18 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
             <div class="clearer"></div>
             <hr class="a11y" />
 
-            <!-- PAGE ACTIONS -->
-            <?php if ($showTools): ?>
-                <div id="dokuwiki__pagetools">
-                    <h3 class="a11y"><?php echo $lang['page_tools'] ?></h3>
-                    <ul>
-                        <?php
-                            tpl_action('edit', 1, 'li');
-                            _tpl_action('discussion', 1, 'li');
-                            tpl_action('revisions', 1, 'li');
-                            tpl_action('backlink', 1, 'li');
-                            tpl_action('subscribe', 1, 'li');
-                            tpl_action('revert', 1, 'li');
-                            tpl_action('top', 1, 'li');
-                        ?>
-                    </ul>
-                </div>
-            <?php endif; ?>
         </div><!-- /wrapper -->
 
         <!-- ********** FOOTER ********** -->
         <div id="dokuwiki__footer"><div class="pad">
-            <div class="doc"><?php tpl_pageinfo() /* 'Last modified' etc */ ?></div>
-            <?php tpl_license('button') /* content license, parameters: img=*badge|button|0, imgonly=*0|1, return=*0|1 */ ?>
+            <div class="left"><?php tpl_license('button') /* content license, parameters: img=*badge|button|0, imgonly=*0|1, return=*0|1 */ ?></div>
+            <div class="right">
+                <?php
+                tpl_pageinfo(); /* 'Last modified' etc */
+                echo "&nbsp;";
+                tpl_action('top', 1);
+                ?>
+            </div>
         </div></div><!-- /footer -->
 
         <?php tpl_includeFile('footer.html') ?>

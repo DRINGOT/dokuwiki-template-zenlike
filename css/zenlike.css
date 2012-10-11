@@ -1,0 +1,469 @@
+
+/*
+
+	zenlike1.0 by nodethirtythree design
+	http://www.nodethirtythree.com
+
+*/
+
+*
+{
+padding: 0em;
+margin: 0em;
+}
+
+body
+{
+background: #000000 url('images/bg1.jpg');
+padding: 35px 0px 35px 0px;
+}
+
+body,input
+{
+font-size: 10pt;
+font-family: "georgia", "times new roman", serif;
+color: #333333;
+}
+
+p
+{
+line-height: 1.5em;
+margin-bottom: 1.0em;
+text-align: justify;
+}
+
+a
+{
+color: #B96D00 !important;
+text-decoration: underline !important;
+}
+
+a:hover
+{
+text-decoration: none !important;
+}
+
+
+h1,h2
+{
+display: inline;
+font-weight: bold;
+background-repeat: no-repeat;
+background-position: right;
+color: #000 !important;
+}
+
+h1
+{
+font-family: "georgia", "times new roman", serif !important;
+font-size: 1.7em !important;
+font-weight: normal !important;
+padding-right: 34px !important;
+background-image: url('images/db1.gif');
+}
+
+#mediamanager__page h1 {
+display: block !important;
+background-image: none !important;
+}
+
+#mediamanager__page h2 {
+display: block !important;
+background-image: none !important;
+}
+
+h2
+{
+font-family: "georgia", "times new roman", serif !important;
+font-size: 1.2em !important;
+padding-right: 28px !important;
+background-image: url('images/db2.gif');
+line-height: 2em !important;
+}
+
+h3,h4,h5,h6
+{
+font-family: "georgia", "times new roman", serif !important;
+font-size: 1.2em !important;
+font-weight: normal !important;
+background-image: none !important;
+line-height: 2em !important;
+color: #000 !important;
+}
+
+.contentarea
+{
+padding-top: 1.3em;
+}
+
+img.left
+{
+position: relative;
+float: left;
+margin: 0em 1.8em 1.4em 0em;
+}
+
+img.right
+{
+position: relative;
+float: right;
+margin: 0em 0em 1.8em 1.8em;
+}
+
+.divider1
+{
+position: relative;
+background: #fff url('images/border2.gif') repeat-x;
+height: 14px;
+margin: 2.0em 0em 1.5em 0em;
+clear: both;
+}
+
+.divider2
+{
+position: relative;
+height: 1px;
+border-bottom: solid 1px #eaeaea;
+margin: 2.0em 0em 2.0em 0em;
+}
+
+.post .details
+{
+position: relative;
+top: -1.5em;
+font-size: 0.8em;
+color: #787878;
+}
+
+.post ul.controls
+{
+clear: both;
+}
+
+.post ul.controls li
+{
+display: inline;
+font-size: 0.8em;
+}
+
+.post ul.controls li a
+{
+background-repeat: no-repeat;
+background-position: left;
+padding: 0em 1.0em 0em 20px;
+}
+
+.post ul.controls li a.printerfriendly
+{
+background-image: url('images/icon-printerfriendly.gif');
+}
+
+.post ul.controls li a.comments
+{
+background-image: url('images/icon-comments.gif');
+}
+
+.post ul.controls li a.more
+{
+background-image: url('images/icon-more.gif');
+}
+
+/**
+ * .box moved to .toc-style
+ */
+
+.dokuwiki div.toc, /* old, until 2012-01-25 */
+#dw__toc /* new */
+{
+float: right;
+position: static !important;
+background: #FDFCF6 url('images/boxbg.gif') repeat-x;
+left: -1.5em;
+top: -1.5em;
+padding: 1.5em;
+border-bottom: solid 1px #E1D2BD;
+margin: 1.0em;
+width: 16em !important;
+}
+
+.dokuwiki div.tocheader, /* old, until 2012-01-25 */
+#dw__toc h3
+{
+font-size: 1.2em !important;
+padding-right: 28px !important;
+background-repeat: no-repeat;
+background-position: right;
+background-image: url('images/db2.gif') !important;
+}
+
+ul.linklist
+{
+list-style: none;
+}
+
+ul.linklist li
+{
+line-height: 2.0em;
+}
+
+#upbg
+{
+position: absolute;
+top: 0px;
+left: 0px;
+width: 100%;
+height: 275px;
+background: #fff url('images/bg2.jpg') repeat-x;
+z-index: 1;
+}
+
+/*
+ * #outer => #dokuwiki__site
+ */
+
+#dokuwiki__site
+{
+z-index: 2;
+position: relative;
+/*
+	The width value below controls the overall width of the design. By default it's set to 82%
+	(so it'll take up 82% of the browser window's width). You can set it to a different percentage
+	value (70%, 90%, etc.) or even a pixel value (760px, 800px, etc.) to enforce a fixed width.
+*/
+width: 82%;
+border: solid 7px #fff;
+background-color: #fff;
+margin: 0 auto;
+}
+
+#header
+{
+position: relative;
+width: 100%;
+height: 9.0em;
+background: #2B2B2B url('images/topbg.gif') repeat-x;
+margin-bottom: 2px;
+}
+
+#headercontent
+{
+position: absolute;
+bottom: 0em;
+padding: 0em 2.0em 1.3em 2.0em;
+}
+
+#headercontent h1
+{
+font-weight: normal !important;
+color: #fff !important;
+font-size: 2.5em !important;
+margin: 0px !important;
+background-image: none !important;
+display:block !important
+}
+
+#headercontent h1 sup
+{
+color: #777;
+}
+
+#headercontent h2
+{
+font-size: 1.0em !important;
+font-weight: normal !important;
+color: #aaa !important;
+margin-bottom: 0px !important;
+background-image: none !important;
+display:block !important;
+}
+
+#search
+{
+position: absolute;
+top: 5.5em;
+right: 2.0em;
+padding-right: 0.0em;
+}
+
+/**
+ * #search input.text => input.edit
+ */
+
+#search input.edit
+{
+margin-right: 0.5em;
+vertical-align: middle;
+border-top: solid 1px #000000;
+border-right: 0px;
+border-bottom: solid 1px #777777;
+border-left: 0px;
+padding: 0.15em;
+width: 10.0em;
+}
+
+/**
+ * #search input.submit => input.button
+ */
+
+#search input.button
+{
+background: #939B00 url('images/buttonbg.gif') repeat-x;
+border: solid 1px #5F6800;
+font-weight: bold;
+padding: 0.25em;
+font-size: 0.8em;
+color: #F2F3DE;
+vertical-align: middle;
+}
+
+#headerpic
+{
+position: relative;
+height: 109px;
+background: #fff url('images/hdrpic.jpg') no-repeat top left;
+margin-bottom: 2px;
+}
+
+#dokuwiki__pagetools {
+float: right;
+}
+
+#dokuwiki__pagetools ul {
+padding: 0px;
+margin: 0px;
+}
+
+#dokuwiki__pagetools ul li {
+position: relative;
+display: inline;
+padding: 0px;
+margin: 0px;
+}
+
+#dokuwiki__pagetools ul li a {
+padding: 0.5em 1.0em 0px 1.0em !important;
+color: #000 !important;
+text-decoration: none !important;
+}
+
+#dokuwiki__pagetools ul li a:hover
+{
+text-decoration: underline !important;
+}
+
+#menu
+{
+position: relative;
+background: #7F8400 url('images/menubg.gif') repeat-x top left;
+height: 3.5em;
+padding: 0em 1.0em 0em 1.0em;
+margin-bottom: 2px;
+}
+
+#menu #rightmenu
+{
+float: right;
+}
+
+#menu #rightmenu ul
+{
+position: relative !important;
+top: 1.1em;
+}
+
+#menu ul
+{
+position: absolute;
+top: 1.1em;
+padding: 0px;
+}
+
+#menu ul li
+{
+position: relative;
+display: inline;
+padding: 0px;
+margin: 0px;
+color: #fff !important;
+}
+
+#menu ul li a
+{
+padding: 0.5em 1.0em 0.9em 1.0em !important;
+color: #fff !important;
+text-decoration: none !important;
+}
+
+#menu ul li a:hover
+{
+text-decoration: underline !important;
+}
+
+#menu ul li a.active
+{
+background: #7F8400 url('images/menuactive.gif') repeat-x top left;
+}
+
+#menubottom
+{
+background: #fff url('images/border1.gif') repeat-x;
+height: 14px;
+margin-bottom: 1.5em;
+}
+
+/*
+ * #content => .page
+ */
+
+.page
+{
+padding: 0em 2.0em 0em 2.0em !important;
+padding-top: 1em !important;
+}
+
+div.breadcrumbs {
+padding: 0em 2.0em 0em 2.0em !important;
+}
+
+#primarycontainer
+{
+float: left;
+margin-right: -18.0em;
+width: 100%;
+}
+
+#primarycontent
+{
+margin: 1.5em 22.0em 0em 0em;
+}
+
+#secondarycontent
+{
+margin-top: 1.5em;
+float: right;
+width: 18.0em;
+}
+
+#dokuwiki__footer
+{
+position: relative;
+height: 2.0em;
+clear: both;
+padding-top: 5.0em;
+background: #fff url('images/border2.gif') repeat-x 0em 2.5em;
+font-size: 0.8em;
+}
+
+#dokuwiki__footer .left
+{
+position: absolute;
+left: 2.0em;
+bottom: 1.2em;
+}
+
+#dokuwiki__footer .right
+{
+position: absolute;
+right: 2.0em;
+bottom: 1.2em;
+}
