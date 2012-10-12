@@ -24,8 +24,7 @@ h1,h2,h3,h4,h5,h6 {
 h1,h2 {
     display: inline;
     font-weight: bold;
-    background-repeat: no-repeat;
-    background-position: right;
+    background: no-repeat right;
 }
 
 h1, h1#search {
@@ -69,7 +68,7 @@ h1#search {
     font-weight: normal;
     color: #fff;
     font-size: 2.5em;
-    margin: 0px;
+    margin: 0;
     background-image: none;
     display: block;
 }
@@ -78,19 +77,19 @@ h1#search {
     font-weight: normal;
     color: #aaa;
     font-size: 1.0em;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     background-image: none;
     display: block;
 }
 
 #media__manager h1, #media__manager h2 {
-    border-bottom: 0px;
+    border-bottom: 0;
 }
 
 /* IMAGES */
 
 img {
-    border: 0px;
+    border: 0;
 }
 
 /* FORMS */
@@ -101,9 +100,9 @@ div#search input.edit {
     margin-right: 0.5em;
     vertical-align: middle;
     border-top: 1px solid #000;
-    border-right: 0px;
+    border-right: 0;
     border-bottom: 1px solid #777;
-    border-left: 0px;
+    border-left: 0;
     padding: 0.15em;
     width: 10.0em;
 }
@@ -139,19 +138,19 @@ input.button {
 }
 
 #dokuwiki__pagetools ul {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 #dokuwiki__pagetools ul li {
     position: relative;
     display: inline;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 #dokuwiki__pagetools ul li a {
-    padding: 0.5em 1.0em 0px 1.0em;
+    padding: 0.5em 1.0em 0 1.0em;
     color: #000;
     text-decoration: none;
 }
@@ -170,12 +169,12 @@ input.button {
 }
 
 #menu ul {
-    padding: 0px;
+    padding: 0;
 }
 
 #menu ul li {
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     color: #fff;
 }
 
@@ -197,18 +196,17 @@ input.button {
     width: 100%;
     height: 100%;
     position: absolute;
-    top: 0px;
+    top: 0;
 }
 
 /* Page, copied from "#content" */
 
 .page {
-    padding: 0em 2.0em 0em 2.0em;
-    padding-top: 1em;
+    padding: 1em 2.0em 0 2.0em;
 }
 
 div.breadcrumbs {
-    padding: 0em 2.0em 0em 2.0em;
+    padding: 0 2.0em 0 2.0em;
 }
 
 /* Dokuwiki-Footer, copied from #footer */
@@ -218,7 +216,7 @@ div.breadcrumbs {
     height: 2.0em;
     clear: both;
     padding-top: 5.0em;
-    background: #fff url('images/border2.gif') repeat-x 0em 2.5em;
+    background: #fff url('images/border2.gif') repeat-x 0 2.5em;
     font-size: 0.8em;
 }
 
@@ -254,10 +252,7 @@ div.breadcrumbs {
 #dw__toc h3 /* new */ {
     font-size: 1.2em;
     padding-right: 28px;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-image: url('images/db2.gif');
-    background-color: transparent;
+    background: transparent url('images/db2.gif') no-repeat right;
 }
 
 .contentarea {
