@@ -178,6 +178,10 @@ input.button {
     color: #fff;
 }
 
+#menu ul li.menusplit {
+    padding: 0.5em 1.0em 0 1.0em;
+}
+
 /* SPECIAL STYLES */
 
 /* Site, copied from "outer"-style */
@@ -268,4 +272,17 @@ div.breadcrumbs {
 
 #config__manager td.label span.outkey a {
     text-decoration: none;
+}
+
+/** Sidebar **/
+
+#dokuwiki__aside {
+    width: __sidebar_width__;
+    position: absolute;
+    display: block;
+    margin: 1em 1em;
+}
+
+#dokuwiki__content {
+    margin-left: __sidebar_width__;
 }

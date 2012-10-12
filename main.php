@@ -51,7 +51,9 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
                         <h1><?php echo $conf['title']; ?></h1>
                         <?php if (tpl_getConf('tagline')): ?>
                         <h2><?php echo tpl_getConf('tagline'); ?></h2>
-                        <?php endif ?>
+                        <?php elseif ($conf['tagline']): ?>
+                        <h2><?php echo $conf['tagline']; ?></h2>
+                        <?php endif; ?>
                     </div>
                 </div>
 
@@ -105,7 +107,7 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
 
                                 if ($conf['useacl'] && $showTools) {
 
-                                    echo '<li>&brvbar;&nbsp;</li>';
+                                    echo '<li class="menusplit">&brvbar;</li>';
 
                                     if ($_SERVER['REMOTE_USER']) {
                                         echo '<li class="user">';
