@@ -4,6 +4,17 @@
 
 /* ANCHORS */
 
+/* existing wikipage */
+.dokuwiki a.wikilink1 {
+    color: __existing__;
+    background-color: inherit;
+}
+/* not existing wikipage */
+.dokuwiki a.wikilink2 {
+    color: __missing__;
+    background-color: inherit;
+}
+
 a, a:link, a:visited, a.breadcrumbs:visited, a.breadcrumbs:visited {
     color: #B96D00;
     text-decoration: underline;
