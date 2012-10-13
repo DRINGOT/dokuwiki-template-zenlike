@@ -302,3 +302,7 @@ div.breadcrumbs {
 .columns-plugin td {
     border: 0;
 }
+
+#headerpic {
+    background-color: #000;
+}
