@@ -298,3 +298,7 @@ div.breadcrumbs {
 #dokuwiki__content {
     margin-left: __sidebar_width__;
 }
+
+.columns-plugin td {
+    border: 0;
+}
