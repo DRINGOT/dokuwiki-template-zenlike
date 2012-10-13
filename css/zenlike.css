@@ -295,7 +295,7 @@ div.breadcrumbs {
     margin: 1em 1em;
 }
 
-#dokuwiki__content {
+.with_sidebar {
     margin-left: __sidebar_width__;
 }
 
