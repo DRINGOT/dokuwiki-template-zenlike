@@ -242,6 +242,7 @@ div.breadcrumbs {
 
 #dokuwiki__footer .left {
     left: 2.0em;
+    max-width: 50em;
 }
 
 #dokuwiki__footer .right {
