@@ -107,18 +107,35 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
 
                                 if ($conf['useacl'] && $showTools) {
 
-                                    echo '<li class="menusplit">&brvbar;</li>';
+                                    echo '<li class="menusplit">';
+
+                                    echo '<img src="' . tpl_basedir() .
+                                         'images/icon-user.png" ' .
+                                         'id="toggle_usertools" ';
 
                                     if ($_SERVER['REMOTE_USER']) {
-                                        echo '<li class="user">';
-                                        tpl_userinfo(); /* 'Logged in as ...' */
-                                        echo '</li>';
+                                        echo 'title="';
+                                        tpl_userinfo();
+                                        echo '" ';
                                     }
+
+                                    echo 'width="32" height="16" alt="' .
+                                        $lang['user_tools'] .
+                                         '" />';
+
+                                    echo '</li>';
+
+                                    echo '<div id="usertools" ' .
+                                         'style="display:none"><ul>';
+
+
                                     tpl_action('admin', 1, 'li');
                                     _tpl_action('userpage', 1, 'li');
                                     tpl_action('profile', 1, 'li');
-                                    tpl_action('register', 1, 'li'); /* DW versions < 2011-02-20 need to use _tpl_action('register', 1, 'li') */
+                                    tpl_action('register', 1, 'li');
                                     tpl_action('login', 1, 'li');
+
+                                    echo '</ul></div>';
 
                                 }
 
