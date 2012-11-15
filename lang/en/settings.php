@@ -10,3 +10,4 @@ $lang['hideTools']        = 'Hide tools when not logged in?';
 $lang['tagline']          = 'Tagline (<strong>deprecated</strong>, use core &quot;tagline&quot; setting since Adora Belle)';
 $lang['sidebarID']        = 'page name of page included in sidebar (<strong>deprecated</strong>, use core &quot;sidebar&quot; setting since Adora Belle)';
 $lang['menu']             = 'Menu to be displayed above content. Format: Label|wiki-id,Label2|wiki-id2,...';
+$lang['headerPicture']    = 'URL to picture in the header (leave empty to use default)';

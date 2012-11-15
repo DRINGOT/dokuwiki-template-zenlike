@@ -237,5 +237,17 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
 
     <div class="no"><?php tpl_indexerWebBug() /* provide DokuWiki housekeeping, required in all templates */ ?></div>
     <!--[if ( IE 6 | IE 7 | IE 8 ) ]></div><![endif]-->
+
+    <?php
+    if (tpl_getConf("headerPicture") != "") {
+    ?>
+    <script type="text/javascript">
+        jQuery("#headerpic").css("background-image", "url('<?php
+            echo tpl_getConf("headerPicture");
+            ?>')");
+    </script>
+    <?php
+    }
+    ?>
 </body>
 </html>
