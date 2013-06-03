@@ -317,3 +317,42 @@ div.breadcrumbs {
     height: 3.5em;
     right: 0;
 }
+
+/** List **/
+
+ul {
+
+    list-style: disc inside;
+    padding: 0;
+
+}
+
+/** Images **/
+
+.medialeft {
+
+    margin-right: 1em;
+
+}
+
+.mediaright {
+
+    margin-left: 1em;
+
+}
+
+/** Toolbar **/
+
+#tool__bar {
+
+    height: 30px;
+
+}
+
+/** Pickers **/
+
+.picker {
+
+    z-index: 2;
+
+}
