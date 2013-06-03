@@ -9,14 +9,15 @@
 
 if (!defined('DOKU_INC')) die(); /* must be run from within DokuWiki */
 @require_once(dirname(__FILE__).'/tpl_functions.php'); /* include hook for template functions */
+header('X-UA-Compatible: IE=edge,chrome=1');
 
 $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER['REMOTE_USER'] );
+$showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 ?><!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $conf['lang'] ?>"
   lang="<?php echo $conf['lang'] ?>" dir="<?php echo $lang['direction'] ?>" class="no-js">
 <head>
     <meta charset="UTF-8" />
-    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><![endif]-->
     <title><?php tpl_pagetitle() ?> [<?php echo strip_tags($conf['title']) ?>]</title>
     <script>(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)</script>
     <?php tpl_metaheaders() ?>
@@ -36,11 +37,9 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
     <?php /* .dokuwiki should always be in one of the surrounding elements (e.g. plugins and templates depend on it) */ ?>
     <div id="upbg"></div>
     <div id="dokuwiki__site"><div id="dokuwiki__top"
-        class="dokuwiki site mode_<?php echo $ACT ?>">
+        class="dokuwiki site mode_<?php echo $ACT ?> <?php echo ($showSidebar) ? 'hasSidebar' : '' ?>">
         <?php html_msgarea() /* occasional error and info messages on top of the page */ ?>
         <?php tpl_includeFile('header.html') ?>
-
-
 
         <!-- ********** HEADER ********** -->
         <div id="dokuwiki__header"><div class="pad">
@@ -185,18 +184,18 @@ $showTools = !tpl_getConf('hideTools') || ( tpl_getConf('hideTools') && $_SERVER
         <div class="wrapper">
 
             <!-- ********** ASIDE ********** -->
-            <?php if ($conf['sidebar']): ?>
-            <div id="dokuwiki__aside"><div class="pad include">
-                <?php tpl_includeFile('sidebarheader.html') ?>
-                <?php tpl_include_page($conf['sidebar'], 1, 1) /* includes the nearest sidebar page */ ?>
-                <?php tpl_includeFile('sidebarfooter.html') ?>
-                <div class="clearer"></div>
-            </div></div><!-- /aside -->
+            <?php if ($showSidebar): ?>
+                <div id="dokuwiki__aside"><div class="pad include">
+                    <?php tpl_includeFile('sidebarheader.html') ?>
+                    <?php tpl_include_page($conf['sidebar'], 1, 1) /* includes the nearest sidebar page */ ?>
+                    <?php tpl_includeFile('sidebarfooter.html') ?>
+                    <div class="clearer"></div>
+                </div></div><!-- /aside -->
             <?php endif; ?>
 
             <!-- ********** CONTENT ********** -->
             <div id="dokuwiki__content">
-                <?php if ($conf['sidebar']): ?>
+                <?php if ($showSidebar): ?>
                 <div class="pad with_sidebar">
                 <?php else: ?>
                 <div class="pad">
