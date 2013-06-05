@@ -74,7 +74,58 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                     <?php
 
-                    $menuItems = explode(',', tpl_getConf('menu'));
+                    $menu = array();
+
+                    if (
+                        (tpl_getConf('menuid') == '') ||
+                        (! page_exists(tpl_getConf('menuid')))
+                    ) {
+
+                        $menuItems = explode(',', tpl_getConf('menu'));
+
+                        foreach ($menuItems as $item) {
+
+                            list ($label, $pageId) = explode('|', $item);
+
+                            $menu[] = array(
+                                'label' => $label,
+                                'link' => wl($pageId)
+                            );
+
+                        }
+
+                    } else {
+
+                        $text = rawWiki(tpl_getConf('menuid'));
+
+                        preg_match_all(
+                            '/^  \* \[\[([^|]*)\|(.*)\]\].*$/m',
+                            $text,
+                            $matches
+                        );
+
+                        for ($i = 0; $i < count($matches[1]); $i = $i + 1) {
+
+                            $link = $matches[1][$i];
+
+                            $urire = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[.\!\/\\w]*))?)/';
+
+                            if (!preg_match($urire, $link)) {
+
+                                // Seems that the link is a page id.
+
+                                $link = wl($link);
+
+                            }
+
+                            $menu[] = array(
+                                'label' => $matches[2][$i],
+                                'link' => $link
+                            );
+
+                        }
+
+                    }
 
                     if ($INFO['ismobile']) {
 
@@ -87,14 +138,12 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                     }
 
-                    foreach ($menuItems as $item) {
-
-                        list($label, $pageId) = explode('|', $item);
+                    foreach ($menu as $item) {
 
                         if ($INFO['ismobile']) {
 
                             print '<option value="' .
-                                wl($pageId) .
+                                $item['link'] .
                                 '"';
 
                             if (strcmp($pageId, $ID) == 0) {
@@ -103,11 +152,11 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                             }
 
-                            print '>' . $label . '</option>';
+                            print '>' . $item['label'] . '</option>';
 
                         } else {
 
-                            print '<li><a href="' . wl($pageId) . '"';
+                            print '<li><a href="' . $item['link'] . '"';
 
                             if (strcmp($pageId, $ID) == 0) {
 
@@ -115,7 +164,7 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                             }
 
-                            print '>' . $label . '</a></li>';
+                            print '>' . $item['label'] . '</a></li>';
 
                         }
 
