@@ -72,14 +72,40 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                 <div id="menu">
 
-                    <ul>
-                        <?php
+                    <?php
 
-                        $menuItems = explode(',', tpl_getConf('menu'));
+                    $menuItems = explode(',', tpl_getConf('menu'));
 
-                        foreach ($menuItems as $item) {
+                    if ($INFO['ismobile']) {
 
-                            list($label, $pageId) = explode('|', $item);
+                        print '<select onChange="window.location=' .
+                            'this.selectedOptions[0].value">';
+
+                    } else {
+
+                        print '<ul>';
+
+                    }
+
+                    foreach ($menuItems as $item) {
+
+                        list($label, $pageId) = explode('|', $item);
+
+                        if ($INFO['ismobile']) {
+
+                            print '<option value="' .
+                                wl($pageId) .
+                                '"';
+
+                            if (strcmp($pageId, $ID) == 0) {
+
+                                print ' selected';
+
+                            }
+
+                            print '>' . $label . '</option>';
+
+                        } else {
 
                             print '<li><a href="' . wl($pageId) . '"';
 
@@ -93,54 +119,75 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
                         }
 
-                        ?>
-                    </ul>
+                    }
+
+                    if ($INFO['ismobile']) {
+
+                        print '</select>';
+
+                    } else {
+
+                        print '</ul>';
+
+                    }
+
+                    ?>
 
                     <div id="rightmenu">
-                        <ul>
-                                <?php
 
-                                tpl_action('recent', 1, 'li');
-                                tpl_action('media', 1, 'li');
-                                tpl_action('index', 1, 'li');
+                        <?php
 
-                                if ($conf['useacl'] && $showTools) {
+                        if ($INFO['ismobile']) {
 
-                                    echo '<li class="menusplit">';
+                            tpl_actiondropdown($lang['tools']);
 
-                                    echo '<img src="' . tpl_basedir() .
-                                         'images/icon-user.png" ' .
-                                         'id="toggle_usertools" ';
+                        } else {
 
-                                    if ($_SERVER['REMOTE_USER']) {
-                                        echo 'title="';
-                                        tpl_userinfo();
-                                        echo '" ';
-                                    }
+                            print '<ul>';
 
-                                    echo 'width="32" height="16" alt="' .
-                                        $lang['user_tools'] .
-                                         '" />';
+                            tpl_action('recent', 1, 'li');
+                            tpl_action('media', 1, 'li');
+                            tpl_action('index', 1, 'li');
 
-                                    echo '</li>';
+                            if ($conf['useacl'] && $showTools) {
 
-                                    echo '<div id="usertools" ' .
-                                         'style="display:none"><ul>';
+                                echo '<li class="menusplit">';
 
+                                echo '<img src="' . tpl_basedir() .
+                                     'images/icon-user.png" ' .
+                                     'id="toggle_usertools" ';
 
-                                    tpl_action('admin', 1, 'li');
-                                    _tpl_action('userpage', 1, 'li');
-                                    tpl_action('profile', 1, 'li');
-                                    tpl_action('register', 1, 'li');
-                                    tpl_action('login', 1, 'li');
-
-                                    echo '</ul></div>';
-
+                                if ($_SERVER['REMOTE_USER']) {
+                                    echo 'title="';
+                                    tpl_userinfo();
+                                    echo '" ';
                                 }
 
-                                ?>
+                                echo 'width="32" height="16" alt="' .
+                                    $lang['user_tools'] .
+                                     '" />';
 
-                        </ul>
+                                echo '</li>';
+
+                                echo '<div id="usertools" ' .
+                                     'style="display:none"><ul>';
+
+                                tpl_action('admin', 1, 'li');
+                                _tpl_action('userpage', 1, 'li');
+                                tpl_action('profile', 1, 'li');
+                                tpl_action('register', 1, 'li');
+                                tpl_action('login', 1, 'li');
+
+                                echo '</ul></div>';
+
+                            }
+
+                            print '</ul>';
+
+                        }
+
+                        ?>
+
                     </div>
                 </div>
 
@@ -151,19 +198,23 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
             <div class="clearer"></div>
 
             <!-- PAGE ACTIONS -->
-            <?php if ($showTools): ?>
+            <?php if ($showTools && !$INFO['ismobile']): ?>
             <div id="dokuwiki__pagetools">
                 <h3 class="a11y"><?php echo $lang['page_tools'] ?></h3>
-                <ul>
-                    <?php
-                    tpl_action('edit', 1, 'li');
-                    _tpl_action('discussion', 1, 'li');
-                    tpl_action('revisions', 1, 'li');
-                    tpl_action('backlink', 1, 'li');
-                    tpl_action('subscribe', 1, 'li');
-                    tpl_action('revert', 1, 'li');
-                    ?>
-                </ul>
+                <?php
+
+                print '<ul>';
+
+                tpl_action('edit', 1, 'li');
+                _tpl_action('discussion', 1, 'li');
+                tpl_action('revisions', 1, 'li');
+                tpl_action('backlink', 1, 'li');
+                tpl_action('subscribe', 1, 'li');
+                tpl_action('revert', 1, 'li');
+
+                print '</ul>';
+
+                ?>
             </div>
             <?php endif; ?>
 
@@ -241,12 +292,17 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
     if (tpl_getConf("headerPicture") != "") {
     ?>
     <script type="text/javascript">
+
+        // Exchange header logo
+
         jQuery("#headerpic").css("background-image", "url('<?php
             echo tpl_getConf("headerPicture");
             ?>')");
+
     </script>
     <?php
     }
     ?>
+
 </body>
 </html>

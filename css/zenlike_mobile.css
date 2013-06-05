@@ -1,0 +1,95 @@
+@media only screen and (max-width: 42em) {
+
+    /* General site */
+
+    #dokuwiki__site {
+
+        border-width: 2px;
+
+    }
+
+    #dokuwiki__header .headings {
+
+        margin: 0;
+
+    }
+
+    #header {
+
+        height: auto;
+
+    }
+
+    #dokuwiki__header ul.a11y.skip {
+
+        display:none;
+
+    }
+
+    #headercontent {
+
+        position:relative;
+        padding-top: 1.5em;
+
+    }
+
+    #search {
+
+        position: relative;
+        padding: 1em;
+        background: #7F8400 url('images/menubg.gif') repeat-x top left;
+        top: auto;
+        right: auto;
+
+    }
+
+    #menu {
+
+        height: auto;
+        padding: 1em;
+
+    }
+
+    #dokuwiki__footer {
+
+        height: auto;
+        padding: 5em 1em 1em;
+
+    }
+
+    #dokuwiki__footer .left, #dokuwiki__footer .right {
+
+        position: static;
+        bottom: auto;
+
+    }
+
+    /* Login */
+
+    .dokuwiki fieldset {
+
+        width: auto;
+
+    }
+
+    /* Editor */
+
+    #tool__bar {
+
+        height: auto;
+
+    }
+
+    .dokuwiki #wiki__editbar .summary, .dokuwiki div.editBar .summary {
+
+        display: none;
+
+    }
+
+    /* Media manager */
+
+    .mode_media div.page {
+        overflow: auto;
+    }
+
+}
