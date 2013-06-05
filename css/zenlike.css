@@ -2,6 +2,20 @@
  * CSS adoption of the zenlike template for Dokuwiki
  */
 
+/* Basics */
+
+html {
+
+    background: #000 url('images/bg1.jpg') !important;
+
+}
+
+body {
+
+    background: none !important;
+
+}
+
 /* ANCHORS */
 
 /* existing wikipage */
