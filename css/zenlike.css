@@ -336,7 +336,7 @@ div.breadcrumbs {
 
 ul {
 
-    list-style: disc inside;
+    list-style: disc none;
     padding: 0;
 
 }
