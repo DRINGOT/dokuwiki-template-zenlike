@@ -35,7 +35,6 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
     <?php /* classes mode_<action> are added to make it possible to e.g. style a page differently if it's in edit mode,
          see http://www.dokuwiki.org/devel:action_modes for a list of action modes */ ?>
     <?php /* .dokuwiki should always be in one of the surrounding elements (e.g. plugins and templates depend on it) */ ?>
-    <div id="upbg"></div>
     <div id="dokuwiki__site"><div id="dokuwiki__top"
         class="dokuwiki site mode_<?php echo $ACT ?> <?php echo ($showSidebar) ? 'hasSidebar' : '' ?>">
         <?php html_msgarea() /* occasional error and info messages on top of the page */ ?>
@@ -45,22 +44,13 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
         <div id="dokuwiki__header"><div class="pad">
 
             <div class="headings">
-                <div id="header">
-                    <div id="headercontent">
-                        <h1><?php echo $conf['title']; ?></h1>
-                        <?php if (tpl_getConf('tagline')): ?>
-                        <h2><?php echo tpl_getConf('tagline'); ?></h2>
-                        <?php elseif ($conf['tagline']): ?>
-                        <h2><?php echo $conf['tagline']; ?></h2>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div id="search">
-                    <?php tpl_searchform() ?>
-                </div>
-
-                <div id="headerpic"></div>
+                <h1><?php tpl_link(wl(),$conf['title'],'accesskey="h" title="[H]"') ?></h1>
+                <?php /* how to insert logo instead (if no CSS image replacement technique is used):
+                        upload your logo into the data/media folder (root of the media manager) and replace 'logo.png' accordingly:
+                        tpl_link(wl(),'<img src="'.ml('logo.png').'" alt="'.$conf['title'].'" />','id="dokuwiki__top" accesskey="h" title="[H]"') */ ?>
+                <?php if ($conf['tagline']): ?>
+                    <p class="claim"><?php echo $conf['tagline'] ?></p>
+                <?php endif ?>
 
                 <ul class="a11y skip">
                     <li><a href="#dokuwiki__content"><?php echo $lang['skip_to_content'] ?></a></li>
@@ -69,203 +59,43 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
             </div>
 
             <div class="tools">
-
-                <div id="menu">
-
-                    <?php
-
-                    $menu = array();
-
-                    if (
-                        (tpl_getConf('menuid') == '') ||
-                        (! page_exists(tpl_getConf('menuid')))
-                    ) {
-
-                        $menuItems = explode(',', tpl_getConf('menu'));
-
-                        foreach ($menuItems as $item) {
-
-                            list ($label, $pageId) = explode('|', $item);
-
-                            $menu[] = array(
-                                'label' => $label,
-                                'link' => wl($pageId)
-                            );
-
-                        }
-
-                    } else {
-
-                        $text = rawWiki(tpl_getConf('menuid'));
-
-                        preg_match_all(
-                            '/^  \* \[\[([^|]*)\|(.*)\]\].*$/m',
-                            $text,
-                            $matches
-                        );
-
-                        for ($i = 0; $i < count($matches[1]); $i = $i + 1) {
-
-                            $link = $matches[1][$i];
-
-                            $urire = '/((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[.\!\/\\w]*))?)/';
-
-                            if (!preg_match($urire, $link)) {
-
-                                // Seems that the link is a page id.
-
-                                $link = wl($link);
-
-                            }
-
-                            $menu[] = array(
-                                'label' => $matches[2][$i],
-                                'link' => $link
-                            );
-
-                        }
-
-                    }
-
-                    if ($INFO['ismobile']) {
-
-                        print '<select onChange="window.location=' .
-                            'this.selectedOptions[0].value">';
-
-                    } else {
-
-                        print '<ul>';
-
-                    }
-
-                    foreach ($menu as $item) {
-
-                        if ($INFO['ismobile']) {
-
-                            print '<option value="' .
-                                $item['link'] .
-                                '"';
-
-                            if (strcmp($pageId, $ID) == 0) {
-
-                                print ' selected';
-
-                            }
-
-                            print '>' . $item['label'] . '</option>';
-
-                        } else {
-
-                            print '<li><a href="' . $item['link'] . '"';
-
-                            if (strcmp($pageId, $ID) == 0) {
-
-                                print ' class="active"';
-
-                            }
-
-                            print '>' . $item['label'] . '</a></li>';
-
-                        }
-
-                    }
-
-                    if ($INFO['ismobile']) {
-
-                        print '</select>';
-
-                    } else {
-
-                        print '</ul>';
-
-                    }
-
-                    ?>
-
-                    <div id="rightmenu">
-
-                        <?php
-
-                        if ($INFO['ismobile']) {
-
-                            tpl_actiondropdown($lang['tools']);
-
-                        } else {
-
-                            print '<ul>';
-
-                            tpl_action('recent', 1, 'li');
-                            tpl_action('media', 1, 'li');
-                            tpl_action('index', 1, 'li');
-
-                            if ($conf['useacl'] && $showTools) {
-
-                                echo '<li class="menusplit">';
-
-                                echo '<img src="' . tpl_basedir() .
-                                     'images/icon-user.png" ' .
-                                     'id="toggle_usertools" ';
-
+                <!-- USER TOOLS -->
+                <?php if ($conf['useacl'] && $showTools): ?>
+                    <div id="dokuwiki__usertools">
+                        <h3 class="a11y"><?php echo $lang['user_tools'] ?></h3>
+                        <ul>
+                            <?php /* the optional second parameter of tpl_action() switches between a link and a button,
+                                     e.g. a button inside a <li> would be: tpl_action('edit', 0, 'li') */
                                 if ($_SERVER['REMOTE_USER']) {
-                                    echo 'title="';
-                                    tpl_userinfo();
-                                    echo '" ';
+                                    echo '<li class="user">';
+                                    tpl_userinfo(); /* 'Logged in as ...' */
+                                    echo '</li>';
                                 }
-
-                                echo 'width="32" height="16" alt="' .
-                                    $lang['user_tools'] .
-                                     '" />';
-
-                                echo '</li>';
-
-                                echo '<div id="usertools" ' .
-                                     'style="display:none"><ul>';
-
                                 tpl_action('admin', 1, 'li');
                                 _tpl_action('userpage', 1, 'li');
                                 tpl_action('profile', 1, 'li');
-                                tpl_action('register', 1, 'li');
+                                tpl_action('register', 1, 'li'); /* DW versions < 2011-02-20 need to use _tpl_action('register', 1, 'li') */
                                 tpl_action('login', 1, 'li');
-
-                                echo '</ul></div>';
-
-                            }
-
-                            print '</ul>';
-
-                        }
-
-                        ?>
-
+                            ?>
+                        </ul>
                     </div>
-                </div>
+                <?php endif ?>
 
-            </div>
-
-            <div id="menubottom"></div>
-
-            <div class="clearer"></div>
-
-            <!-- PAGE ACTIONS -->
-            <?php if ($showTools && !$INFO['ismobile']): ?>
-            <div id="dokuwiki__pagetools">
-                <h3 class="a11y"><?php echo $lang['page_tools'] ?></h3>
+                <!-- SITE TOOLS -->
+                <div id="dokuwiki__sitetools">
+                    <h3 class="a11y"><?php echo $lang['site_tools'] ?></h3>
+                    <?php tpl_searchform() ?>
+                    <ul>
                 <?php
-
-                print '<ul>';
-
-                tpl_action('edit', 1, 'li');
-                _tpl_action('discussion', 1, 'li');
-                tpl_action('revisions', 1, 'li');
-                tpl_action('backlink', 1, 'li');
-                tpl_action('subscribe', 1, 'li');
-                tpl_action('revert', 1, 'li');
-
-                print '</ul>';
-
+                            tpl_action('recent', 1, 'li');
+                            tpl_action('media', 1, 'li');
+                            tpl_action('index', 1, 'li');
                 ?>
+                    </ul>
             </div>
-            <?php endif; ?>
+
+            </div>
+            <div class="clearer"></div>
 
             <!-- BREADCRUMBS -->
             <?php if($conf['breadcrumbs']){ ?>
@@ -277,7 +107,6 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
             <div class="clearer"></div>
             <hr class="a11y" />
-
         </div></div><!-- /header -->
 
 
@@ -294,12 +123,7 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
             <?php endif; ?>
 
             <!-- ********** CONTENT ********** -->
-            <div id="dokuwiki__content">
-                <?php if ($showSidebar): ?>
-                <div class="pad with_sidebar">
-                <?php else: ?>
-                <div class="pad">
-                <?php endif; ?>
+            <div id="dokuwiki__content"><div class="pad">
                 <?php tpl_flush() /* flush the output buffer */ ?>
                 <?php tpl_includeFile('pageheader.html') ?>
 
@@ -317,18 +141,29 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
             <div class="clearer"></div>
             <hr class="a11y" />
 
+            <!-- PAGE ACTIONS -->
+            <?php if ($showTools): ?>
+                <div id="dokuwiki__pagetools">
+                    <h3 class="a11y"><?php echo $lang['page_tools'] ?></h3>
+                    <ul>
+                        <?php
+                            tpl_action('edit', 1, 'li');
+                            _tpl_action('discussion', 1, 'li');
+                            tpl_action('revisions', 1, 'li');
+                            tpl_action('backlink', 1, 'li');
+                            tpl_action('subscribe', 1, 'li');
+                            tpl_action('revert', 1, 'li');
+                            tpl_action('top', 1, 'li');
+                        ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
         </div><!-- /wrapper -->
 
         <!-- ********** FOOTER ********** -->
         <div id="dokuwiki__footer"><div class="pad">
-            <div class="left"><?php tpl_license('button') /* content license, parameters: img=*badge|button|0, imgonly=*0|1, return=*0|1 */ ?></div>
-            <div class="right">
-                <?php
-                tpl_pageinfo(); /* 'Last modified' etc */
-                echo "&nbsp;";
-                tpl_action('top', 1);
-                ?>
-            </div>
+            <div class="doc"><?php tpl_pageinfo() /* 'Last modified' etc */ ?></div>
+            <?php tpl_license('button') /* content license, parameters: img=*badge|button|0, imgonly=*0|1, return=*0|1 */ ?>
         </div></div><!-- /footer -->
 
         <?php tpl_includeFile('footer.html') ?>
@@ -336,22 +171,5 @@ $showSidebar = page_findnearest($conf['sidebar']) && ($ACT=='show');
 
     <div class="no"><?php tpl_indexerWebBug() /* provide DokuWiki housekeeping, required in all templates */ ?></div>
     <!--[if ( IE 6 | IE 7 | IE 8 ) ]></div><![endif]-->
-
-    <?php
-    if (tpl_getConf("headerPicture") != "") {
-    ?>
-    <script type="text/javascript">
-
-        // Exchange header logo
-
-        jQuery("#headerpic").css("background-image", "url('<?php
-            echo tpl_getConf("headerPicture");
-            ?>')");
-
-    </script>
-    <?php
-    }
-    ?>
-
 </body>
 </html>
