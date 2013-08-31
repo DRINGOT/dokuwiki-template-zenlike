@@ -8,19 +8,30 @@
 
     }
 
-    #dokuwiki__header .headings {
+    #menubottom {
 
         margin: 0;
 
     }
 
-    #header {
+    .dokuwiki div.toc, #dw__toc {
 
+        float: none;
+        left: auto;
+        top: auto;
+        width: auto;
+        margin: 0;
+
+    }
+
+    #zenlikeheader .headings {
+
+        margin: 0;
         height: auto;
 
     }
 
-    #dokuwiki__header ul.a11y.skip {
+    #zenlikeheader ul.a11y.skip {
 
         display:none;
 
@@ -40,6 +51,7 @@
         background: #7F8400 url('images/menubg.gif') repeat-x top left;
         top: auto;
         right: auto;
+        text-align: center;
 
     }
 
@@ -50,6 +62,37 @@
 
     }
 
+    #menu ul {
+
+        position: relative;
+
+    }
+
+    #menu ul li {
+
+        float: none;
+        width: 100%;
+
+    }
+
+    #menu li a {
+
+        display: block;
+
+    }
+
+    #menu #rightmenu {
+
+        float: none;
+
+    }
+
+    #dokuwiki__pagetools {
+
+        display: none;
+
+    }
+
     #dokuwiki__footer {
 
         height: auto;
@@ -57,10 +100,17 @@
 
     }
 
-    #dokuwiki__footer .left, #dokuwiki__footer .right {
+    #dokuwiki__footer .pad, #dokuwiki__footer .pad .doc {
 
         position: static;
         bottom: auto;
+        padding: 0;
+
+    }
+
+    #dokuwiki__footer .pad .license {
+
+        width: auto;
 
     }
 
