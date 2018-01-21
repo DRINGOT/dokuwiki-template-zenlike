@@ -1,11 +1,9 @@
 <?php
 /**
- * Esperantiga dosiero
+ * Esperanto language file - Esperanto-lingvodosiero
  *
- * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  */
 
-$lang['discussion']   = 'Diskuto';
-$lang['userpage']     = 'Pago de uzanto';
-
-//Setup VIM: ex: et ts=2 :
+$lang['discussion']        = 'Diskuto';
+$lang['back_to_article']   = 'Reen al artikolo';
+$lang['userpage']          = 'Paĝo de uzanto';
